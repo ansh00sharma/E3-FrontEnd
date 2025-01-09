@@ -41,11 +41,14 @@ function LoginCard({ title, description }: { title: string, description: string 
       </CardHeader>
       <CardContent>
         <p className="text-gray-300 mb-2 pb-2">{description}</p>
-        <button className="button">
-          via {title}
-        </button>
+        <Link href={title.toLowerCase() === 'face recognition' ? '/faceLogin' : '#'}>
+          <button className="button">
+            via {title}
+          </button>
+        </Link>
       </CardContent>
     </Card>
   )
 }
+
 
