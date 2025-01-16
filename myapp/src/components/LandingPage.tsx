@@ -1,11 +1,12 @@
 'use client'
 
-import '@/app/globals.css'
+import '../../styles/globals.css'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 export default function LandingPage() {
   return (
+    
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-4">
       <motion.h1 
         className="text-4xl md:text-6xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-white"
@@ -35,6 +36,7 @@ export default function LandingPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.8 }}
       >
+    <h1 className='red-text'>Checking</h1>
     <Link href="/login">
         <button className="button">
             Get Started

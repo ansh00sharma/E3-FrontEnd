@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useRouter,usePathname  } from 'next/navigation'
 import {Button} from "@/ui/button2"
 import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
@@ -13,13 +14,24 @@ export default function FaceLoginPage() {
   const leftCanvasRef = useRef<HTMLCanvasElement>(null)
   const rightCanvasRef = useRef<HTMLCanvasElement>(null)
   const leftCanvasContextRef = useRef<CanvasRenderingContext2D | null>(null)
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
-    startCamera()
-    return () => {
-      stopCamera()
+    const handleRouteChange = () => {
+      if (pathname === '/facelogin') {
+        startCamera()
+      } else {
+        stopCamera()
+      }
     }
-  }, [])
+
+    handleRouteChange() // Run on initial load
+
+    return () => {
+      stopCamera() // Stop the camera on unmount
+    }
+  }, [pathname])
 
   const startCamera = async () => {
     try {
@@ -53,6 +65,9 @@ export default function FaceLoginPage() {
     const stream = videoRef.current?.srcObject as MediaStream
     const tracks = stream?.getTracks()
     tracks?.forEach(track => track.stop())
+    if (videoRef.current) {
+      videoRef.current.srcObject = null
+    }
   }
 
   const captureImage = () => {

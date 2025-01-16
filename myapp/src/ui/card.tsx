@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-
+import '../../styles/globals.css'
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -9,7 +9,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-lg border border-gray-700 bg-gray-800 text-gray-100 shadow-sm",
+      "card rounded-lg border border-gray-700 bg-gray-800 text-gray-100 shadow-sm",
       className
     )}
     {...props}

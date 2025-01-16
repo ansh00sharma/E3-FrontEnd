@@ -1,0 +1,74 @@
+:root {
+  --background-start: #111827;  /* gray-900 */
+  --background-mid: #1f2937;    /* gray-800 */
+  --background-end: #000000;    /* black */
+  --text-gradient-start: #f3f4f6;  /* gray-100 */
+  --text-gradient-end: #ffffff;    /* white */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+.button {
+  border: 2px solid white;
+  padding: 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.card::after, .card::before {
+  content: '';
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle) red,blue,pink,green,red);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 10px;
+  animation:3s spin linear infinite
+
+}
+.card::before {
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+@keyframes spin {
+  from{
+    --angle:0deg;
+  }
+  to{
+    --angle:360deg;
+  }
+}
+.red-text{
+  color: red;
+}
+
+
