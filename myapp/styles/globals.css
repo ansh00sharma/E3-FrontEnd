@@ -30,14 +30,15 @@ body {
   color: white;
 }
 
-@property --angle{
+@property --angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 .card {
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
+  z-index: 1;
   border-radius: 10px;
 }
 .card::after, .card::before {
@@ -45,7 +46,7 @@ body {
   position:absolute;
   height: 100%;
   width: 100%;
-  background-image: conic-gradient(from var(--angle) red,blue,pink,green,red);
+  background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
   top: 50%;
   left: 50%;
   translate: -50% -50%;
@@ -53,7 +54,6 @@ body {
   padding: 3px;
   border-radius: 10px;
   animation:3s spin linear infinite
-
 }
 .card::before {
   filter: blur(1.5rem);
@@ -70,5 +70,3 @@ body {
 .red-text{
   color: red;
 }
-
-
