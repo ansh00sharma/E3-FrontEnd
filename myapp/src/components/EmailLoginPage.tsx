@@ -1,25 +1,69 @@
 'use client'
-
 import { useState } from 'react'
-// import { Button } from "@/ui/button"
 import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
 import Link from 'next/link'
+import '../../styles/globals.css';
+import { Card, CardHeader, CardTitle, CardContent } from '@/ui/card';
+import Alert from "@/ui/alert"
+import { useRouter} from 'next/navigation'
 
 export default function EmailLoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [alert, setAlert] = useState<{ message: string; color: string } | null>(null);
+  const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Logging in with:', { email, password })
-    // Here you would typically send this data to your server
+    const payload = {
+      email,
+      password
+    };
+    console.log(JSON.stringify(payload))
+    try{
+      const response = await fetch("http://localhost:8080/user/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        
+        body: JSON.stringify(payload)
+        
+      });
+      const data = await response.json();
+      console.log(data)
+      if (data.status === 200) {
+        // Successful login : show alert -> redirect to page
+        // handle token
+        setAlert({ message: data.message, color: "green" });
+        setTimeout(() => {
+          console.log("Redirecting to /userPannelPage...");
+          router.push("/userPannelPage"); // Redirect after a short delay
+        }, 1500);
+      } else {
+        // Error from backend - show message
+        setAlert({ message: data.message, color: "red" });
+      }
+  } catch (error) {
+    console.error("Error logging in:", error);
+    // alert("Unable to connect to the server. Please try again later.");
   }
 
-  return (
+  }
+
+  return(
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white flex items-center justify-center">
       <div className=" w-full max-w-md">
-        <form onSubmit={handleLogin} className=" bg-gray-800 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-700">
+      <LoginCard/>
+      </div>
+    </div>
+  )
+function LoginCard() {
+  return (
+    <Card className="w-full max-w-sm bg-gray-900 border-gray-400 p-0.5 rounded-lg">
+      <CardContent className="rounded-bl-[12px] rounded-br-[12px] bg-black">
+      <form onSubmit={handleLogin} className=" bg-gray-800 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-700">
           <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
           <div className="mb-4 ">
             <Label htmlFor="email" className="block text-white text-sm font-bold mb-2 px-2">
@@ -53,14 +97,15 @@ export default function EmailLoginPage() {
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Login
             </button>
-            <div className='customcard'>checking</div>
             <Link href="/user-register" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
               Not registered? Click Here
             </Link>
           </div>
         </form>
-      </div>
-    </div>
-  )
+        {alert && <Alert message={alert.message} color={alert.color} />}
+      </CardContent>
+    </Card>
+  );
+}
 }
 

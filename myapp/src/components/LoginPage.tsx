@@ -41,7 +41,7 @@ export default function LoginPage() {
           <LoginCard
             title="Registered Number"
             description="You can also login via your registered Contact Number, Authenticate by OTP."
-            onClick={() => router.push('/face-login')}
+            onClick={() => router.push('/registeredNumberLogin')}
           />
         </div>
       </main>

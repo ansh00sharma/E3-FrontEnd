@@ -36,7 +36,6 @@ export default function LandingPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.8 }}
       >
-    <h1 className='red-text'>Checking</h1>
     <Link href="/login">
         <button className="button">
             Get Started

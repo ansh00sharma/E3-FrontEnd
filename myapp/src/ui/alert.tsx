@@ -1,48 +1,37 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import React, { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+type AlertProps = {
+  message: string;
+  color: string;
+  duration?: number; // Optional: duration in milliseconds before auto-hide
+};
 
-const alertVariants = cva(
-  "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
-  {
-    variants: {
-      variant: {
-        default: "bg-background text-foreground",
-        destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-)
+const Alert: React.FC<AlertProps> = ({ message, color, duration = 3000 }) => {
+  const [visible, setVisible] = useState(false);
 
-const Alert = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
->(({ className, variant, ...props }, ref) => (
-  <div
-    ref={ref}
-    role="alert"
-    className={cn(alertVariants({ variant }), className)}
-    {...props}
-  />
-))
-Alert.displayName = "Alert"
+  useEffect(() => {
+    if (message) {
+      setVisible(true); // Show the alert when message changes
+      const timer = setTimeout(() => {
+        setVisible(false); // Hide after the specified duration
+      }, duration);
 
-const AlertDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("text-sm [&_p]:leading-relaxed", className)}
-    {...props}
-  />
-))
-AlertDescription.displayName = "AlertDescription"
+      return () => clearTimeout(timer); // Cleanup timeout on unmount or new message
+    }
+  }, [message, duration]);
 
-export { Alert, AlertDescription }
+  return (
+    <div
+      className={cn(
+        "fixed top-0 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-md shadow-lg transition-transform duration-500 z-50",
+        visible ? "translate-y-4" : "-translate-y-full"
+      )}
+      style={{ color }}
+    >
+      {message}
+    </div>
+  );
+};
 
+export default Alert;
