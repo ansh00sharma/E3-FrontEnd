@@ -7,6 +7,16 @@ import Image from 'next/image';
 import defaultUserImage from '../images/default_user_image.webp'
 
 export default function UserPannelPage() {
+
+  // const handleActivityClick = async () => {
+  //   try {
+  //     const response = await fetch("http://127.0.0.1:5000/logs/9cae7a40-ff78-4a6f-b81e-01046c23d56b/1/", { method: "GET" });
+  //     // console.log("Activity Logged:", await response.json());
+  //   } catch (error) {
+  //     console.error("Error logging activity:", error);
+  //   }
+  // };
+
     return(
         <div className="h-screen w-screen overflow-hidden flex items-center justify-center">
   <div id="body" className="bg-slate-50 h-full w-full flex">
@@ -45,12 +55,9 @@ export default function UserPannelPage() {
           </a>
         </li>
         <li>
-          <a
-            className="block px-4 py-2.5 text-slate-800 font-semibold hover:bg-emerald-950 hover:text-white rounded-lg"
-            href="#"
-          >
-            Logs
-          </a>
+          <Link href="/userActivity" className="block px-4 py-2.5 text-slate-800 font-semibold hover:bg-emerald-950 hover:text-white rounded-lg">
+            Activity
+          </Link>
         </li>
         <li /*className="bg-slate-50 pb-2 rounded-lg border"*/>
           <a

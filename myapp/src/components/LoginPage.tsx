@@ -30,17 +30,17 @@ export default function LoginPage() {
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 h-[90%] overflow-auto">
           <LoginCard
             title="Face Recognition"
-            description="Use our Real time Face Recognition system to quickly login without need of remembering any Usernam or Passwords."
+            description="Use our Real time Face Recognition system to quickly login without need of remembering any Username or Passwords."
             onClick={() => router.push('/facelogin')}
           />
           <LoginCard
             title="Registered Email"
-            description="Login through your Registered Email address and Password in case any other Service is unavailable."
+            description="Login through your Registered Email address and Password in case any other Service is unavailable.Don't remember your password ? You can click forgot password."
             onClick={() => router.push('/emaillogin')}
           />
           <LoginCard
             title="Registered Number"
-            description="You can also login via your registered Contact Number, Authenticate by OTP."
+            description="You can also login via your registered Contact Number. We will send you an OTP just enter it and you are good to Go."
             onClick={() => router.push('/registeredNumberLogin')}
           />
         </div>
