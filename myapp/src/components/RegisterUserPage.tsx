@@ -6,14 +6,14 @@ import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
 import Link from 'next/link'
 import Alert from "@/ui/alert"
-import { DatabaseIcon } from 'lucide-react'
+// import { DatabaseIcon } from 'lucide-react'
 
 export default function UserRegisterPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm_password, setConfirm_password] = useState('')
   const [phone_number, setContact] = useState('')
-  var [gender, setGender] = useState('')
+  const [genderValue, setGender] = useState('')
   const [name, setNickname] = useState('')
   const router = useRouter();
   const [isvalid, setValid] = useState(true)
@@ -30,13 +30,14 @@ export default function UserRegisterPage() {
   }
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    let gender = '';
     try{
-      if (gender === 'Male') {
+      if (genderValue === 'Male') {
         gender = 'M';
-      } else if (gender === 'Female') {
+      } else if (genderValue === 'Female') {
         gender = 'F';
       } else {
-        gender= 'O';
+        gender = 'O';
       }
       const payload = {
         email,
@@ -99,7 +100,7 @@ export default function UserRegisterPage() {
       <div className="grid grid-cols-2 gap-6">
         {/* Left Side Inputs */}
         <div>
-          <div className="mb-6">
+          <div className="h-[100px]">
             <Label
               htmlFor="email"
               className="block text-white text-sm font-bold mb-2 px-2"
@@ -121,7 +122,7 @@ export default function UserRegisterPage() {
                 ) : <p className="text-gray-400 text-xs pl-2 pt-8"></p>}
             </div>
           </div>
-          <div className="mb-6">
+          <div className="h-[100px]">
             <Label
               htmlFor="password"
               className="block text-white text-sm font-bold mb-2 px-2"
@@ -140,7 +141,7 @@ export default function UserRegisterPage() {
               />
             </div>
           </div>
-          <div className="mb-6">
+          <div className="h-[100px]">
             <Label
               htmlFor="confirm_password"
               className="block text-white text-sm font-bold mb-2 px-2"
@@ -166,7 +167,7 @@ export default function UserRegisterPage() {
 
         {/* Right Side Inputs */}
         <div>
-          <div className="mb-6">
+          <div className="h-[100px]">
             <Label
               htmlFor="name"
               className="block text-white text-sm font-bold mb-2 px-2"
@@ -185,7 +186,7 @@ export default function UserRegisterPage() {
               />
             </div>
           </div>
-          <div className="mb-10">
+          <div className="h-[100px]">
             <Label
               htmlFor="phone_number"
               className="block text-white text-sm font-bold mb-2 px-2"
@@ -194,7 +195,7 @@ export default function UserRegisterPage() {
             </Label>
             <div className='pb-5'>
               <Input
-                type="text"
+                type="number"
                 id="phone_number"
                 placeholder="For Verification"
                 value={phone_number}
@@ -204,7 +205,7 @@ export default function UserRegisterPage() {
               />
             </div>
           </div>
-          <div className="mb-10">
+          <div className="h-[100px]">
             <Label
               htmlFor="gender"
               className="block text-white text-sm font-bold mb-2 px-2"
@@ -216,7 +217,7 @@ export default function UserRegisterPage() {
                 type="text"
                 id="gender"
                 placeholder="We are Cool with Everything"
-                value={gender}
+                value={genderValue}
                 onChange={(e) => setGender(e.target.value)}
                 className="bg-gray-700 text-white border-gray-600 focus:border-white w-full p-2"
                 required

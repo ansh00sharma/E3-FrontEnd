@@ -70,6 +70,73 @@ body {
   filter: blur(1.5rem);
   opacity: 0.5;
 }
+.red-text{
+  color: red;
+}
+
+.row {
+  position: relative;
+  /* overflow: hidden; */
+  z-index: 1;
+  border-radius: 10px;
+}
+.row1::after, .row1::before {
+  content: '';
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), transparent 70%, #00ff99);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 10px;
+  animation:3s spin linear infinite
+}
+.row1::before {
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
+.row2::after, .row2::before {
+  content: '';
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), transparent 70%, #ff4545);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 10px;
+  animation:3s spin linear infinite
+}
+.row2::before {
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
+.row3::after, .row3::before {
+  content: '';
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), transparent 70%, #006aff);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 10px;
+  animation:3s spin linear infinite
+}
+.row3::before {
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
 @keyframes spin {
   from{
     --angle:0deg;
@@ -77,7 +144,4 @@ body {
   to{
     --angle:360deg;
   }
-}
-.red-text{
-  color: red;
 }
