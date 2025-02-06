@@ -35,8 +35,9 @@ export default function EmailLoginPage() {
       const data = await response.json();
       console.log(data);
       if (data.status === 200) {
-        // Successful login : show alert -> redirect to page
         // handle token
+        sessionStorage.setItem("accessToken", data.access_token);
+        
         setAlert({ message: data.message, color: "green" });
         setTimeout(() => {
           console.log("Redirecting to /userPannelPage...");

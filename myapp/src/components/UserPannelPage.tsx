@@ -8,15 +8,6 @@ import defaultUserImage from '../images/default_user_image.webp'
 
 export default function UserPannelPage() {
 
-  // const handleActivityClick = async () => {
-  //   try {
-  //     const response = await fetch("http://127.0.0.1:5000/logs/9cae7a40-ff78-4a6f-b81e-01046c23d56b/1/", { method: "GET" });
-  //     // console.log("Activity Logged:", await response.json());
-  //   } catch (error) {
-  //     console.error("Error logging activity:", error);
-  //   }
-  // };
-
     return(
         <div className="h-screen w-screen overflow-hidden flex items-center justify-center">
   <div id="body" className="bg-slate-50 h-full w-full flex">
@@ -27,14 +18,11 @@ export default function UserPannelPage() {
       <div className="user flex items-center justify-center flex-col gap-4 border-b border-slate-200 py-4">
         <Image className="w-24 rounded-full shadow-xl" alt="User Image" src={defaultUserImage}/>
         <div className="flex flex-col items-center">
-          <span className="font-semibold text-lg text-emerald-700">User Name</span>
           <span className="text-slate-400 text-sm">Male</span>
         </div>
         <div className="text-sm text-slate-400 text-center">
-          <span className="font-semibold text-slate-500">
-            7303638798
-          </span>{' '}
-          30
+          <span className="font-semibold text-slate-500">7303638798</span>
+          <span className="font-semibold text-slate-500">sharma999ansh@gmail.com</span> 
         </div>
       </div>
       <ul className="px-6 space-y-2">

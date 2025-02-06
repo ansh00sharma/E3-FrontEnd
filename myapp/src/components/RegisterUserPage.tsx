@@ -65,7 +65,7 @@ export default function UserRegisterPage() {
         setAlert({ message: data.message, color: "green" });
         setTimeout(() => {
           console.log("Redirecting to /userPannelPage...");
-          router.push("/userPannelPage"); // Redirect after a short delay
+          router.push("/login"); // Redirect after a short delay
         }, 1500);
       } else {
         // Error from backend - show message

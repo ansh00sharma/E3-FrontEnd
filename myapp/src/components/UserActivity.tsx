@@ -28,8 +28,16 @@ export default function UserActivityPage() {
         const fetchLogs = async () => {
           setLoading(true);
           try {
-            const response = await fetch(`http://127.0.0.1:5000/logs/9cae7a40-ff78-4a6f-b81e-01046c23d56b/${currentPage}/`);
+            const access_token = sessionStorage.getItem("accessToken")
+            const response = await fetch(`http://127.0.0.1:5000/logs/${currentPage}/`,{
+                method: "GET",
+                headers : {
+                    "Content-Type": "application/json",
+                    "Authorization": access_token ? `Bearer ${access_token}` : "",
+                },}
+            );
             const data = await response.json();
+            console.log(data)
             setLogs(Array.isArray(data.message) ? data.message : []);
           } catch (error) {
             console.error("Error fetching logs:", error);
@@ -56,10 +64,8 @@ return(
                     <span className="text-slate-400 text-sm">Male</span>
                     </div>
                     <div className="text-sm text-slate-400 text-center">
-                    <span className="font-semibold text-slate-500">
-                        7303638798
-                    </span>{' '}
-                    30
+                        <div className="font-semibold text-slate-500">7303638798</div>
+                        <div className="font-semibold text-slate-500">sharma999ansh</div>
                     </div>
                 </div>
                 <ul className="px-6 space-y-2">
