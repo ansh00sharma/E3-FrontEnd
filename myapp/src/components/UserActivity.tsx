@@ -2,6 +2,7 @@
 
 import "../../styles/globals.css";
 import { useEffect, useState } from "react";
+import NavBar from "./NavBar";
 
 interface LogEntry {
   action: string;
@@ -16,6 +17,7 @@ interface LogEntry {
 export default function UserActivityPage() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isCollapsed, setCollapsed] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -48,36 +50,42 @@ export default function UserActivityPage() {
   }, [currentPage]);
 
   return (
-    <div className="h-screen w-full overflow-hidden flex items-center justify-center">
+    <div className="h-screen w-screen overflow-hidden flex items-center justify-center">
       <div id="body" className="bg-slate-50 h-full w-full flex">
-        <div className="right w-full flex flex-col p-6">
+        <NavBar isCollapsed={isCollapsed} setCollapsed={setCollapsed} />
+        <div
+          className={`right flex flex-col p-6 ${
+            isCollapsed ? "w-[98%]" : "w-[83%]"
+          }`}
+        >
           <h1 className="text-2xl font-bold mb-4">User Activity</h1>
 
           {loading ? (
             <p className="text-gray-500">Loading...</p>
           ) : logs.length > 0 ? (
-            <div className="bg-white shadow-md rounded-lg p-6 font-mono text-sm">
-              {/* Table Header */}
-              <div className="grid grid-cols-4 gap-2 pb-3 border-b border-gray-200 text-gray-700 uppercase font-semibold text-xs">
-                <span>Action</span>
-                <span>IP Address</span>
-                <span>Time & Date</span>
-                <span>User Agent</span>
-              </div>
-
-              {/* Table Rows */}
-              {logs.map((log) => (
-                <div key={log.log_id} className="grid grid-cols-4 gap-2 py-2">
-                  <span>{log.action}</span>
-                  <span className="text-gray-500">{log.ip_address}</span>
-                  <span>
-                    {log.time} - {log.date}({log.day})
-                  </span>
-                  <span className="text-gray-500 truncate">
-                    {log.user_agent}
-                  </span>
-                </div>
-              ))}
+            <div className="bg-white shadow-md rounded-lg p-6 font-mono text-sm overflow-x-auto">
+              <table className="w-full whitespace-nowrap">
+                <thead className="border-b border-gray-200 text-gray-700 uppercase font-semibold text-sm pb-3">
+                  <tr>
+                    <td className="pr-6">Action</td>
+                    <td className="pr-6">IP Address</td>
+                    <td className="pr-6">Time & Date</td>
+                    <td className="pr-6">User Agent</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {logs.map((log) => (
+                    <tr key={log.log_id} className="py-2 text-sm">
+                      <td className="pr-6">{log.action}</td>
+                      <td className="pr-6 text-gray-500">{log.ip_address}</td>
+                      <td className="pr-6">
+                        {log.time} - {log.date}({log.day})
+                      </td>
+                      <td className="text-gray-500">{log.user_agent}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           ) : (
             <p className="text-gray-500">No activity found.</p>

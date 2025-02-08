@@ -2,7 +2,7 @@
 import Image from "next/image";
 import "../../styles/globals.css";
 import defaultUserImage from "../images/default_user_image.webp";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 
 const NavList = [
@@ -13,8 +13,15 @@ const NavList = [
   { label: "Sign Out", value: "#" },
 ];
 
-export default function NavBar() {
-  const [isCollapseNav, setCollapseNav] = useState<boolean>(false);
+type Props = {
+  isCollapsed: boolean;
+  setCollapsed: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function NavBar({
+  isCollapsed,
+  setCollapsed,
+}: Props) {
   const [selectedTab, setSelectedTab] = useState<string>("");
   const selectedTabClass = (item: string) => {
     if (selectedTab === item) {
@@ -25,16 +32,16 @@ export default function NavBar() {
   return (
     <nav
       className={`bg-white h-full flex flex-col gap-1 border-r border-slate-100 relative ${
-        isCollapseNav ? "w-6" : "w-80"
+        isCollapsed ? "w-[2%]" : "w-[17%]"
       }`}
     >
       <span
         className="border border-gray-400 rounded-md absolute top-5 -right-2 bg-white p-0.5 font-bold text-xs cursor-pointer"
-        onClick={() => setCollapseNav(!isCollapseNav)}
+        onClick={() => setCollapsed(!isCollapsed)}
       >
-        {isCollapseNav ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}
+        {isCollapsed ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}
       </span>
-      {!isCollapseNav ? (
+      {!isCollapsed ? (
         <>
           <div className="logo text-2xl font-bold text-center pt-6 flex items-center justify-center">
             Name
