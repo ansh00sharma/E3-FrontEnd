@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
 import Link from "next/link";
 import "../../styles/globals.css";
 import { Card, CardContent } from "@/ui/card";
-import Alert from "@/ui/alert";
 import { useRouter } from "next/navigation";
 
 export default function EmailLoginPage() {
@@ -53,12 +52,18 @@ export default function EmailLoginPage() {
     }
   };
 
+  useEffect(() => {
+    if (alert?.message) {
+      window.alert(alert?.message);
+    }
+  }, [alert?.message]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white flex items-center justify-center">
-      <div className=" w-full max-w-md">
-        <Card className="w-full max-w-sm h-[400px] bg-gray-900 border-gray-400 p-0.5 rounded-lg">
+      <div className="w-[600px]">
+        <Card className="w-full h-[400px] bg-gray-900 border-gray-400 p-0.5 rounded-lg">
           <div className="rounded-xl bg-black w-full h-full">
-            <CardContent className="w-full h-full">
+            <CardContent className="w-full h-full p-0">
               <form
                 onSubmit={handleLogin}
                 className=" bg-gray-800 w-full h-full shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-700"
@@ -117,7 +122,6 @@ export default function EmailLoginPage() {
                   </span>
                 </div>
               </form>
-              {alert && <Alert message={alert.message} color={alert.color} />}
             </CardContent>
           </div>
         </Card>
