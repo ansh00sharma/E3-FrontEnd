@@ -1,5 +1,6 @@
 import "../../styles/globals.css";
 import { Inter } from "next/font/google";
+import { AuthProvider } from "@/lib/authProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,16 +10,14 @@ export const metadata = {
     "Dive into the cutting-edge world of Artificial Intelligence and Machine Learning at GenAiLand.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({children,}: {children: React.ReactNode;}) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-black overflow-hidden`}>
-        {children}
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body className={`${inter.className} bg-black overflow-hidden`}>
+          {children}
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

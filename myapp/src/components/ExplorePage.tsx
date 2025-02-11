@@ -65,6 +65,8 @@ const exploreItems: ExploreItem[] = [
 
 export default function ExplorePage() {
   const router = useRouter();
+  sessionStorage.removeItem("accessToken");
+  sessionStorage.removeItem("userData");
   const getClassName = (i: number) => {
     if (i < 3) {
       return "row1";

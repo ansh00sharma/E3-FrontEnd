@@ -2,7 +2,8 @@
 
 import "../../styles/globals.css";
 import { useEffect, useState } from "react";
-import NavBar from "./NavBar";
+import ToggleBar from "./ToggleBar";
+import { useAuth } from "@/lib/authProvider"
 
 interface LogEntry {
   action: string;
@@ -14,7 +15,8 @@ interface LogEntry {
   user_agent: string;
 }
 
-export default function UserActivityPage() {
+export default function UserActivity() {
+  // const { accessToken } = useAuth();
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isCollapsed, setCollapsed] = useState<boolean>(false);
@@ -25,14 +27,15 @@ export default function UserActivityPage() {
     const fetchLogs = async () => {
       setLoading(true);
       try {
-        const access_token = sessionStorage.getItem("accessToken");
+        
+        const accessToken = sessionStorage.getItem("accessToken");
         const response = await fetch(
           `http://127.0.0.1:5000/logs/${currentPage}/`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: access_token ? `Bearer ${access_token}` : "",
+              Authorization: accessToken? `Bearer ${accessToken}` : "",
             },
           }
         );
@@ -52,7 +55,7 @@ export default function UserActivityPage() {
   return (
     <div className="h-screen w-screen overflow-hidden flex items-center justify-center">
       <div id="body" className="bg-slate-50 h-full w-full flex">
-        <NavBar isCollapsed={isCollapsed} setCollapsed={setCollapsed} />
+        <ToggleBar isCollapsed={isCollapsed} setCollapsed={setCollapsed} />
         <div
           className={`right flex flex-col p-6 ${
             isCollapsed ? "w-[98%]" : "w-[83%]"

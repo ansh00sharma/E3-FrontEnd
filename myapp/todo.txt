@@ -1,7 +1,5 @@
 1. setup correct url formats
 2. fix alert message popups with animation
-3. fix all 3 login forms
-4. fix register form 
 5. FIX LANDING PAGE
 6. fix UserActivity (logs) table
 7. add togglebar to menu on UserPannelPage
