@@ -1,6 +1,0 @@
-1. setup correct url formats
-2. fix alert message popups with animation
-5. FIX LANDING PAGE
-6. fix UserActivity (logs) table
-7. add togglebar to menu on UserPannelPage
-8. fix highligh of current tab on feature
